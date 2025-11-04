@@ -15,6 +15,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface AuthApiService {
+
     @POST("auth/login")
     suspend fun loginUser(
         @Body request: LoginRequest

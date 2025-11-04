@@ -84,4 +84,5 @@ class HomePageFragment : Fragment(), OnMapReadyCallback {
         super.onLowMemory()
         binding.mapView.onLowMemory()
     }
+
 }

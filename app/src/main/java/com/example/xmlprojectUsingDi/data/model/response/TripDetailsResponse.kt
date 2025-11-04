@@ -28,25 +28,3 @@ data class TripDetailsResponse(
     val materials: List<Materials>?,
     val category: Category?
 )
-
-//data class Receiver(
-//    val name: String?,
-//    val phone: String?,
-//    val countryId: Int?,
-//    val diaCode: String?
-//)
-//
-//data class DropoffAddress(
-//    val line1: String?,
-//    val line2: String?,
-//    val city: String?,
-//    val state: String?,
-//    val postal_code: String?
-//)
-//
-//data class Customer(
-//    val id: Int?,
-//    val name: String?,
-//    val profileImage: String?,
-//    val role: String?
-//)

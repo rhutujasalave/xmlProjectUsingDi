@@ -1,6 +1,5 @@
 package com.example.xmlprojectUsingDi.data.model.response
 
-
 data class DialCode(
     val id: Int,
     val diaCode: String,

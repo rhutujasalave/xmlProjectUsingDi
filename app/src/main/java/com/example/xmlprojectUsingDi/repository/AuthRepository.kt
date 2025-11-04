@@ -1,7 +1,6 @@
 package com.example.xmlprojectUsingDi.repository
 
 import com.example.xmlprojectUsingDi.data.api.AuthApiService
-import com.example.xmlprojectUsingDi.data.api.RetrofitClient
 import com.example.xmlprojectUsingDi.data.model.request.LoginRequest
 import com.example.xmlprojectUsingDi.data.model.request.SignUpRequest
 import com.example.xmlprojectUsingDi.data.model.response.DialCodeResponse
@@ -67,7 +66,6 @@ class AuthRepository @Inject constructor(
 
     suspend fun getTripDetails(token: String, tripId: Int) =
         authApiService.getTripDetails("Bearer $token", tripId)
-
 
 }
 

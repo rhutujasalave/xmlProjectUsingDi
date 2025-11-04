@@ -3,8 +3,7 @@ package com.example.xmlprojectUsingDi.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.xmlprojectUsingDi.repository.AuthRepository
-
-
+//no need in di
 class TripListViewModelFactory(
     private val repository: AuthRepository
 ) : ViewModelProvider.Factory {

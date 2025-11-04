@@ -1,6 +1,7 @@
 package com.example.xmlprojectUsingDi.data.model.request
 
 data class SignUpRequest(
+
     val countryId: Int,
     val phone: String,
     val email: String,

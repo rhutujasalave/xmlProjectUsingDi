@@ -20,7 +20,6 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.EditText
 
-
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
 

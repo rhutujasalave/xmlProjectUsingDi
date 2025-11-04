@@ -1,5 +1,6 @@
 package com.example.xmlprojectUsingDi.ui
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.xmlprojectUsingDi.databinding.FragmentWalletBinding
 
-class WalletFragment: Fragment() {
+class WalletFragment : Fragment() {
 
     private var _binding: FragmentWalletBinding? = null
     private val binding get() = _binding!!
@@ -38,4 +39,4 @@ class WalletFragment: Fragment() {
         }
     }
 
-    }
+}

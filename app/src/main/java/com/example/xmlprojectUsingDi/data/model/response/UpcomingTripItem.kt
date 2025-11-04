@@ -1,6 +1,5 @@
 package com.example.xmlprojectUsingDi.data.model.response
 
-
 data class UpcomingTripItem(
     val customerName: String?,
     val pickupLocation: String?,

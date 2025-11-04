@@ -11,7 +11,6 @@ import com.example.xmlprojectUsingDi.data.model.response.LoginResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-
 //class SignInViewModel : ViewModel() {   //without using di
 // private val repository = AuthRepository()  // remove this
 

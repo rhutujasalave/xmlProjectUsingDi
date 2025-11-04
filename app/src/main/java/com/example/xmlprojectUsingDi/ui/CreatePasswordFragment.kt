@@ -91,6 +91,7 @@ class CreatePasswordFragment : Fragment() {
         )
     }
 
+
     private fun getColorForRule(isValid: Boolean): Int {
         return if (isValid) 0xFF4CAF50.toInt() else 0xFFF44336.toInt()
     }
