@@ -2,11 +2,13 @@ package com.example.xmlprojectUsingDi.data.api
 
 import com.example.xmlprojectUsingDi.data.model.request.LoginRequest
 import com.example.xmlprojectUsingDi.data.model.request.SignUpRequest
+import com.example.xmlprojectUsingDi.data.model.response.CardListResponse
 import com.example.xmlprojectUsingDi.data.model.response.DialCodeResponse
 import com.example.xmlprojectUsingDi.data.model.response.LoginResponse
 import com.example.xmlprojectUsingDi.data.model.response.SignUpResponse
 import com.example.xmlprojectUsingDi.data.model.response.TripDetailsResponse
 import com.example.xmlprojectUsingDi.data.model.response.TripListResponse
+import com.example.xmlprojectUsingDi.data.model.response.WalletBalanceResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -50,6 +52,20 @@ interface AuthApiService {
         @Query("tripId") tripId: Int,
         @Header("Accept-Language") language: String = "en"
     ): Response<TripDetailsResponse>
+
+
+    @GET("customer/wallet/balance")
+    suspend fun getWalletBalance(
+        @Header("Authorization") token: String,
+        @Header("Accept-Language") language: String = "en"
+    ): Response<WalletBalanceResponse>
+
+
+    @GET("customer/payment/tokens")
+    suspend fun getCardList(
+        @Header("Authorization") token: String,
+        @Header("Accept-Language") language: String = "en"
+    ): Response<List<CardListResponse>>
 
 }
 

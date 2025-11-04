@@ -1,4 +1,4 @@
-package com.example.xmlprojectUsingDi.ui
+package com.example.xmlprojectUsingDi.ui.screens
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
