@@ -1,4 +1,4 @@
-package com.example.xmlprojectUsingDi.ui
+package com.example.xmlprojectUsingDi.ui.screens
 
 import android.app.DatePickerDialog
 import android.os.Bundle

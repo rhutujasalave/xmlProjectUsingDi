@@ -1,4 +1,4 @@
-package com.example.xmlprojectUsingDi.ui
+package com.example.xmlprojectUsingDi.ui.screens
 
 import android.os.Bundle
 import android.text.InputType
@@ -17,7 +17,6 @@ import com.example.xmlprojectUsingDi.ui.viewmodel.CountryViewModel
 import com.example.xmlprojectUsingDi.ui.viewmodel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.GestureDetector
-import android.view.MotionEvent
 import android.widget.EditText
 
 @AndroidEntryPoint
@@ -175,6 +174,7 @@ class SignInFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
         binding.tvForgotPassword.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, CreatePasswordFragment())

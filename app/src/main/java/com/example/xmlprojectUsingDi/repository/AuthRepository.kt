@@ -3,6 +3,7 @@ package com.example.xmlprojectUsingDi.repository
 import com.example.xmlprojectUsingDi.data.api.AuthApiService
 import com.example.xmlprojectUsingDi.data.model.request.LoginRequest
 import com.example.xmlprojectUsingDi.data.model.request.SignUpRequest
+import com.example.xmlprojectUsingDi.data.model.response.CardListResponse
 import com.example.xmlprojectUsingDi.data.model.response.DialCodeResponse
 import com.example.xmlprojectUsingDi.data.model.response.LoginResponse
 import com.example.xmlprojectUsingDi.data.model.response.SignUpResponse
@@ -64,8 +65,20 @@ class AuthRepository @Inject constructor(
         }
     }
 
+
     suspend fun getTripDetails(token: String, tripId: Int) =
         authApiService.getTripDetails("Bearer $token", tripId)
+
+
+    suspend fun getWalletBalance(token: String) =
+        authApiService.getWalletBalance("Bearer $token")
+
+    suspend fun getCardList(token: String) =
+        authApiService.getCardList("Bearer $token")
+
+//    suspend fun getCardList(token: String): Response<List<CardListResponse>> {
+//        return authApiService.getCardList("Bearer $token")
+//    }
 
 }
 
