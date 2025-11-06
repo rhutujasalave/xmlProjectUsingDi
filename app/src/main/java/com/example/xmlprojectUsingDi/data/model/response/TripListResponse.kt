@@ -69,8 +69,15 @@ data class Customer(
     val phone: String,
     val profileImage: String?,
     val averageRating: Double,
-    val role: String
+    val role: String,
+    val country: Country?
 )
+
+data class Country(
+    val id: Int,
+    val diaCode: String
+)
+
 
 data class Option(
     val id: Int,

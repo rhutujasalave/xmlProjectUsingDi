@@ -65,7 +65,6 @@
 //        viewModel.getTripDetails(token, tripId)
 //    }
 //
-//
 //    private fun initArguments() {
 //        tripId = arguments?.getInt(ARG_TRIP_ID) ?: 0
 //        isUpcoming = arguments?.getBoolean(ARG_IS_UPCOMING) ?: false
@@ -86,17 +85,13 @@
 //
 //    private fun setupObservers() {
 //        viewModel.tripDetail.observe(viewLifecycleOwner) { detail ->
+//
 //            binding.profileName.text = detail.receiver?.name ?: "N/A"
-//            binding.tvdate.text = detail.schedule?.toDate ?: "N/A"
 //
 //            detail.schedule?.toDate?.let { isoDate ->
-//                val formattedDate = formatDateTime(isoDate)
-//                    .replace(",", " | ")
-//                binding.tvdate.text = formattedDate
-//            } ?: run {
-//                binding.tvdate.text = "N/A"
-//            }
-//
+//                val formatted = formatDateTime(isoDate).replace(",", " | ")
+//                binding.tvdate.text = formatted
+//            } ?: run { binding.tvdate.text = "N/A" }
 //
 //            binding.tvDropAddress.text = buildString {
 //                append(detail.dropoffAddress?.line1 ?: "")
@@ -109,35 +104,41 @@
 //            binding.tvMaterialCost.text = detail.materialCost?.toString() ?: "N/A"
 //            binding.tvTransportationCost.text = detail.transportCost?.toString() ?: "N/A"
 //            binding.tvTotalCost.text = detail.totalCost?.toString() ?: "N/A"
+//            binding.tvLaborCost.text = detail.totalLabourCost?.toString() ?: "N/A"
 //            binding.tvMaterialType.text = "Material : ${detail.category?.name ?: "N/A"}"
-//            binding.tvQuantity.text = detail.materials?.
-//            joinToString(separator = "\n") { mat ->
-//                "${mat.name} : ${mat.value}"
-//            }
-//                ?: "N/A"
+//
+//            binding.tvQuantity.text = detail.materials?.joinToString("\n") {
+//                "${it.name} : ${it.value}"
+//            } ?: "N/A"
 //
 //
 //            Glide.with(requireContext())
-//                .load(detail.destinationImage)
+//                .load(detail.category?.icon)
+//                .placeholder(R.drawable.ic_profile)
+//                .error(R.drawable.ic_profile)
+//                .into(binding.imgPickup)
+//
+//            Glide.with(requireContext())
+//                .load(detail.customer?.profileImage)
+//                .circleCrop()
+//                .placeholder(R.drawable.ic_profile)
+//                .error(R.drawable.ic_profile)
+//                .into(binding.profileImage)
+//
+//
+//            val fixedDropUrl = detail.destinationImage?.fixDuplicateUrl()
+//
+//            Glide.with(requireContext())
+//                .load(fixedDropUrl)
+//                .placeholder(R.drawable.ic_profile)
+//                .error(R.drawable.ic_profile)
 //                .into(binding.imgDrop)
-//
-////            val imageUrl = detail.destinationImage?.fixDuplicateUrl()
-////            if (!imageUrl.isNullOrEmpty() && imageUrl != lastImageUrl) {
-////                lastImageUrl = imageUrl
-////                Glide.with(requireContext())
-////                    .load(imageUrl)
-////                    .skipMemoryCache(false)
-////                    .dontAnimate()
-////                    .into(binding.imgDrop)
-////            }
-//
 //        }
 //
 //        viewModel.error.observe(viewLifecycleOwner) { msg ->
 //            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
 //        }
 //    }
-//
 //
 //    private fun setupClickListeners() {
 //        binding.backIcon.setOnClickListener {
@@ -146,33 +147,24 @@
 //
 //        binding.btnCancel.setOnClickListener {
 //            showConfirmationDialog(
-//                title = "Cancel Trip",
-//                message = "Are you sure you want to cancel this trip?",
-//                positiveAction = {
-//                    Toast.makeText(
-//                        requireContext(),
-//                        "Trip cancelled successfully",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            )
+//                "Cancel Trip",
+//                "Are you sure you want to cancel this trip?"
+//            ) {
+//                Toast.makeText(requireContext(), "Trip cancelled successfully", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
 //        }
 //
 //        binding.btnReconfirm.setOnClickListener {
 //            showConfirmationDialog(
-//                title = "Re-Confirm Trip",
-//                message = "Are you sure you want to confirm this trip?",
-//                positiveAction = {
-//                    Toast.makeText(
-//                        requireContext(),
-//                        "Trip confirmed successfully",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            )
+//                "Re-Confirm Trip",
+//                "Are you sure you want to confirm this trip?"
+//            ) {
+//                Toast.makeText(requireContext(), "Trip confirmed successfully", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
 //        }
 //    }
-//
 //
 //    private fun showConfirmationDialog(title: String, message: String, positiveAction: () -> Unit) {
 //        val builder = AlertDialog.Builder(requireContext(), R.style.WhiteAlertDialog)
@@ -182,26 +174,25 @@
 //            dialog.dismiss()
 //            positiveAction()
 //        }
-//        builder.setNegativeButton("Cancel") { dialog, _ ->
-//            dialog.dismiss()
-//        }
+//        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
 //
 //        val dialog = builder.create()
 //        dialog.show()
 //
 //        dialog.window?.setBackgroundDrawable(
-//            ColorDrawable(
-//                ContextCompat.getColor(
-//                    requireContext(),
-//                    android.R.color.white
-//                )
-//            )
+//            ColorDrawable(ContextCompat.getColor(requireContext(), android.R.color.white))
 //        )
 //
-//        val greenColor = ContextCompat.getColor(requireContext(), android.R.color.holo_green_dark)
-//        val redColor = ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
-//        dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(greenColor)
-//        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(redColor)
+//        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+//            ?.setTextColor(
+//                ContextCompat.getColor(
+//                    requireContext(),
+//                    android.R.color.holo_green_dark
+//                )
+//            )
+//
+//        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+//            ?.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark))
 //    }
 //
 //    override fun onDestroyView() {
@@ -211,10 +202,19 @@
 //}
 
 
+
+
+
+
+
+
+
 package com.example.xmlprojectUsingDi.ui.screens
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -241,6 +241,13 @@ class UpcomingTripDetailsFragment : Fragment() {
     private var tripId: Int = 0
     private var isUpcoming: Boolean = false
     private var lastImageUrl: String? = null
+
+    // Variables to store phone numbers for contact
+    private var receiverPhoneNumber: String? = null
+    private var receiverCountryCode: String? = null
+    private var customerPhoneNumber: String? = null
+    private var customerCountryCode: String? = null
+
 
     companion object {
         private const val ARG_TRIP_ID = "tripId"
@@ -295,7 +302,6 @@ class UpcomingTripDetailsFragment : Fragment() {
         }
     }
 
-
     private fun setupObservers() {
         viewModel.tripDetail.observe(viewLifecycleOwner) { detail ->
 
@@ -319,11 +325,16 @@ class UpcomingTripDetailsFragment : Fragment() {
             binding.tvTotalCost.text = detail.totalCost?.toString() ?: "N/A"
             binding.tvLaborCost.text = detail.totalLabourCost?.toString() ?: "N/A"
             binding.tvMaterialType.text = "Material : ${detail.category?.name ?: "N/A"}"
+            
+            // Store phone numbers for contact functionality
+            receiverPhoneNumber = detail.receiver?.phone
+            receiverCountryCode = detail.receiver?.diaCode
+            customerPhoneNumber = detail.customer?.phone
+            customerCountryCode = detail.customer?.country?.diaCode
 
             binding.tvQuantity.text = detail.materials?.joinToString("\n") {
                 "${it.name} : ${it.value}"
             } ?: "N/A"
-
 
             Glide.with(requireContext())
                 .load(detail.category?.icon)
@@ -338,19 +349,19 @@ class UpcomingTripDetailsFragment : Fragment() {
                 .error(R.drawable.ic_profile)
                 .into(binding.profileImage)
 
-
             val fixedDropUrl = detail.destinationImage?.fixDuplicateUrl()
-
             Glide.with(requireContext())
                 .load(fixedDropUrl)
                 .placeholder(R.drawable.ic_profile)
                 .error(R.drawable.ic_profile)
                 .into(binding.imgDrop)
+
         }
 
         viewModel.error.observe(viewLifecycleOwner) { msg ->
             Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
         }
+
     }
 
     private fun setupClickListeners() {
@@ -377,7 +388,78 @@ class UpcomingTripDetailsFragment : Fragment() {
                     .show()
             }
         }
+
+        binding.callIcon.setOnClickListener {
+            val phoneNumber = receiverPhoneNumber ?: customerPhoneNumber
+            phoneNumber?.let { number ->
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:$number")
+                startActivity(intent)
+            } ?: run {
+                Toast.makeText(requireContext(), "Phone number not available", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.whatsappIcon.setOnClickListener {
+
+            val phoneNumber = receiverPhoneNumber ?: customerPhoneNumber
+            val countryCode = receiverCountryCode ?: customerCountryCode
+
+            if (!phoneNumber.isNullOrEmpty() && !countryCode.isNullOrEmpty()) {
+                openWhatsApp(phoneNumber, countryCode)
+            } else {
+                Toast.makeText(requireContext(), "Phone number not available", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
+    private fun openWhatsApp(phoneNumber: String, countryCode: String) {
+        try {
+            val cleanCountry = countryCode.replace("+", "").trim()
+            val cleanNumber = phoneNumber.replace("+", "").replace("-", "").replace(" ", "").trim()
+            val fullNumber = "$cleanCountry$cleanNumber"
+
+            val uri = Uri.parse("https://api.whatsapp.com/send?phone=$fullNumber")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            when {
+
+                isAppInstalled("com.whatsapp") -> {
+                    intent.setPackage("com.whatsapp")
+                    startActivity(intent)
+                }
+                isAppInstalled("com.whatsapp.w4b") -> {
+                    intent.setPackage("com.whatsapp.w4b")
+                    startActivity(intent)
+                }
+                else -> {
+                    val webUri = Uri.parse("https://wa.me/$fullNumber")
+                    val webIntent = Intent(Intent.ACTION_VIEW, webUri)
+                    webIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(webIntent)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(requireContext(), "Error opening WhatsApp: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun isAppInstalled(packageName: String): Boolean {
+        return try {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                requireContext().packageManager.getPackageInfo(packageName, android.content.pm.PackageManager.PackageInfoFlags.of(0))
+            } else {
+                @Suppress("DEPRECATION")
+                requireContext().packageManager.getPackageInfo(packageName, 0)
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
 
     private fun showConfirmationDialog(title: String, message: String, positiveAction: () -> Unit) {
         val builder = AlertDialog.Builder(requireContext(), R.style.WhiteAlertDialog)
@@ -398,10 +480,7 @@ class UpcomingTripDetailsFragment : Fragment() {
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE)
             ?.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    android.R.color.holo_green_dark
-                )
+                ContextCompat.getColor(requireContext(), android.R.color.holo_green_dark)
             )
 
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
