@@ -1,6 +1,5 @@
 package com.example.xmlprojectUsingDi.ui.screens
 
-
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -18,11 +17,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        RetrofitClient.init(this)  //remove bcoz hilt is used in this
 
         if (savedInstanceState == null) {
             loadFragment(SignInFragment(), showBottomNav = false)
-
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
@@ -43,6 +40,11 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.visibility = if (showBottomNav) View.VISIBLE else View.GONE
     }
 
+    fun showBottomNav(show: Boolean) {
+        binding.bottomNavigation.visibility =
+            if (show) View.VISIBLE else View.GONE
+    }
+
     fun saveAuthToken(token: String) {
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         with(sharedPref.edit()) {
@@ -55,6 +57,4 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         return sharedPref.getString("AUTH_TOKEN", null)
     }
-
 }
-

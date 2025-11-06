@@ -10,8 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <ImageView
 
@@ -31,38 +31,86 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <LinearLayout
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:background="@drawable/bg_wallet_card"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="16dp">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Available Balance"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="14sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvAvailableBalance"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:text=""-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="28sp"-->
+<!--            android:textStyle="bold" />-->
+
+<!--                <ImageView-->
+<!--                    android:layout_width="60dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:layout_gravity="end"-->
+<!--                    android:src="@drawable/img_2"-->
+<!--                    android:layout_marginTop="-30dp" />-->
+<!--    </LinearLayout>-->
+
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@drawable/bg_wallet_card">
+        android:layout_height="180dp"
+        android:layout_marginTop="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Available Balance"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/bg_wallet_card_main"
+            android:padding="20dp">
 
-        <TextView
-            android:id="@+id/tvAvailableBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#FFFFFF"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp" />
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/img_2"
+                android:scaleType="fitCenter" />
 
-<!--        <ImageView-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:layout_gravity="end"-->
-<!--            android:src="@drawable/ic_wallet_logo"-->
-<!--            android:layout_marginTop="-30dp" />-->
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvAvailableText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Available Balance"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="35dp"/>
+
+            <TextView
+                android:id="@+id/tvAvailableBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,10 +121,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
             android:background="@drawable/bg_white_box"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <ImageView
                 android:layout_width="24dp"
@@ -87,8 +135,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="12dp"
+                android:layout_weight="1"
                 android:text="Current Balance"
                 android:textColor="#333333"
                 android:textSize="16sp" />
@@ -107,10 +155,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:padding="12dp"
             android:background="@drawable/bg_white_box"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <ImageView
                 android:layout_width="24dp"
@@ -121,8 +169,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="12dp"
+                android:layout_weight="1"
                 android:text="Recharge Wallet"
                 android:textColor="#333333"
                 android:textSize="16sp" />
@@ -131,20 +179,20 @@
                 android:id="@+id/btnAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:backgroundTint="#A7CD4A"
                 android:paddingHorizontal="16dp"
                 android:text="Add"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#A7CD4A" />
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:padding="12dp"
             android:background="@drawable/bg_white_box"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:padding="12dp">
 
             <ImageView
                 android:layout_width="24dp"
@@ -155,8 +203,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="12dp"
+                android:layout_weight="1"
                 android:text="Withdraw Amount"
                 android:textColor="#333333"
                 android:textSize="16sp" />
@@ -165,10 +213,10 @@
                 android:id="@+id/btnWithdraw"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:backgroundTint="#A7CD4A"
                 android:paddingHorizontal="16dp"
                 android:text="Withdraw"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#A7CD4A" />
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
     </LinearLayout>

@@ -1,6 +1,5 @@
 package com.example.xmlprojectUsingDi.ui.screens
 
-
 import android.app.Dialog
 import android.os.Bundle
 import android.view.*
@@ -13,6 +12,8 @@ import com.example.xmlprojectUsingDi.R
 class AddCardDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+        (activity as? MainActivity)?.showBottomNav(false)
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_add_new_card)
@@ -63,5 +64,9 @@ class AddCardDialogFragment : DialogFragment() {
 
     private fun showToast(msg: String) {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as? MainActivity)?.showBottomNav(true)
     }
 }

@@ -48,7 +48,6 @@ class TripListFragment : Fragment() {
 
         val token = (activity as? MainActivity)?.getAuthToken() ?: ""
 
-        // Fetch both upcoming and past trips
         viewModel.getTripList(token, isUpcoming = true)
         viewModel.getTripList(token, isUpcoming = false)
 

@@ -69,16 +69,12 @@ class AuthRepository @Inject constructor(
     suspend fun getTripDetails(token: String, tripId: Int) =
         authApiService.getTripDetails("Bearer $token", tripId)
 
-
     suspend fun getWalletBalance(token: String) =
         authApiService.getWalletBalance("Bearer $token")
 
     suspend fun getCardList(token: String) =
         authApiService.getCardList("Bearer $token")
 
-//    suspend fun getCardList(token: String): Response<List<CardListResponse>> {
-//        return authApiService.getCardList("Bearer $token")
-//    }
 
 }
 

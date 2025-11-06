@@ -26,13 +26,12 @@ class CardListAdapter(
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
+
         val card = cardList[position]
         holder.tvCardNumber.text = "•••• •••• •••• ${card.cardLast4}"
 
-        // Example: show connected status
         holder.tvConnected.text = "Connected"
 
-        // Change icon based on brand
         when (card.cardBrand.lowercase()) {
             "visa" -> holder.ivCardIcon.setImageResource(R.drawable.ic_eye)
             "mastercard" -> holder.ivCardIcon.setImageResource(R.drawable.ic_eye)
