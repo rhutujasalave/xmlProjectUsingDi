@@ -64,7 +64,7 @@ class SignUpFragment : Fragment() {
     private fun setupCountryDropdown() {
         val countryDropdown = binding.actvCountry
 
-        countryViewModel.countryListLiveData.observe(viewLifecycleOwner) { list ->
+        countryViewModel.countryList.observe(viewLifecycleOwner) { list ->
             dialCodeList = list
 
             val countryCodes = list.map { "${it.countryCode} (${it.diaCode})" }
@@ -87,7 +87,7 @@ class SignUpFragment : Fragment() {
             }
         }
 
-        countryViewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
+        countryViewModel.error.observe(viewLifecycleOwner) { error ->
             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
         }
 

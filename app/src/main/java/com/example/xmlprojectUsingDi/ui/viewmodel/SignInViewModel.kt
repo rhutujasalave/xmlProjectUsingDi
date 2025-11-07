@@ -13,12 +13,55 @@ import javax.inject.Inject
 
 //class SignInViewModel : ViewModel() {   //without using di
 // private val repository = AuthRepository()  // remove this
+//
+//@HiltViewModel
+//class SignInViewModel @Inject constructor(
+//    private val repository: AuthRepository
+//): ViewModel()
+//{
+//
+//    sealed class LoginState {
+//        object Idle : LoginState()
+//        object Loading : LoginState()
+//        data class Success(val response: LoginResponse) : LoginState()
+//        data class Error(val message: String) : LoginState()
+//    }
+//
+//    private val _loginState = MutableLiveData<LoginState>(LoginState.Idle)
+//    val loginState: LiveData<LoginState> = _loginState
+//
+//    private val _isLoading = MutableLiveData<Boolean>()
+//    val isLoading: LiveData<Boolean> = _isLoading
+//
+//    fun loginUser(diaCode: String, phone: String, password: String) {
+//        viewModelScope.launch {
+//            _isLoading.postValue(true)
+//            _loginState.postValue(LoginState.Loading)
+//            try {
+//                val request = LoginRequest(diaCode, phone, password)
+//                val response = repository.loginUser(request)
+//
+//                if (response.isSuccessful && response.body() != null) {
+//                    _loginState.postValue(LoginState.Success(response.body()!!))
+//                } else {
+//                    val errorMsg = response.errorBody()?.string() ?: "Login failed"
+//                    _loginState.postValue(LoginState.Error(errorMsg))
+//                }
+//            } catch (e: Exception) {
+//                _loginState.postValue(LoginState.Error("Error: ${e.localizedMessage}"))
+//            } finally {
+//                _isLoading.postValue(false)
+//            }
+//        }
+//    }
+//}
+//
+
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val repository: AuthRepository
-): ViewModel()
-{
+) : ViewModel() {
 
     sealed class LoginState {
         object Idle : LoginState()
@@ -28,31 +71,39 @@ class SignInViewModel @Inject constructor(
     }
 
     private val _loginState = MutableLiveData<LoginState>(LoginState.Idle)
-    val loginState: LiveData<LoginState> = _loginState
+    val loginState: LiveData<LoginState> get() = _loginState
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
+
 
     fun loginUser(diaCode: String, phone: String, password: String) {
+        _loading.value = true
+        _loginState.value = LoginState.Loading
+
         viewModelScope.launch {
-            _isLoading.postValue(true)
-            _loginState.postValue(LoginState.Loading)
             try {
                 val request = LoginRequest(diaCode, phone, password)
                 val response = repository.loginUser(request)
 
                 if (response.isSuccessful && response.body() != null) {
-                    _loginState.postValue(LoginState.Success(response.body()!!))
+                    _loginState.value = LoginState.Success(response.body()!!)
                 } else {
                     val errorMsg = response.errorBody()?.string() ?: "Login failed"
-                    _loginState.postValue(LoginState.Error(errorMsg))
+                    _loginState.value = LoginState.Error(errorMsg)
+                    _error.value = errorMsg
                 }
+
             } catch (e: Exception) {
-                _loginState.postValue(LoginState.Error("Error: ${e.localizedMessage}"))
+                val msg = e.localizedMessage ?: "Unknown error"
+                _loginState.value = LoginState.Error(msg)
+                _error.value = msg
             } finally {
-                _isLoading.postValue(false)
+                _loading.value = false
             }
         }
     }
 }
-
