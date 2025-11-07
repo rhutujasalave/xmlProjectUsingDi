@@ -96,10 +96,23 @@ class UpcomingTripDetailsFragment : Fragment() {
 
             binding.profileName.text = detail.receiver?.name ?: "N/A"
 
+//            detail.schedule?.toDate?.let { isoDate ->
+//                val formatted = formatDateTime(isoDate).replace(",", " | ")
+//                binding.tvdate.text = formatted
+//            } ?: run { binding.tvdate.text = "N/A" }
+
+
             detail.schedule?.toDate?.let { isoDate ->
+
                 val formatted = formatDateTime(isoDate).replace(",", " | ")
+
                 binding.tvdate.text = formatted
-            } ?: run { binding.tvdate.text = "N/A" }
+                binding.tvAcceptedDate.text = formatted
+            } ?: run {
+                binding.tvdate.text = "N/A"
+                binding.tvAcceptedDate.text = "N/A"
+            }
+
 
             binding.tvDropAddress.text = buildString {
                 append(detail.dropoffAddress?.line1 ?: "")

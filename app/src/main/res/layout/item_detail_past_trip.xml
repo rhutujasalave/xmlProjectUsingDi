@@ -297,30 +297,24 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5 Dec 2024"
-                    android:textColor="@color/black" />
 
-                <TextView
+                    android:id="@+id/tvAcceptedDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  |  "
-                    android:textColor="#999" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="04:50 AM"
+                    android:text=""
                     android:textColor="@color/black" />
 
                 <ImageView
+
+                    android:id="@+id/downloadIcon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
                     android:src="@drawable/ic_download" />
 
                 <ImageView
+
+                    android:id="@+id/sendIcon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
