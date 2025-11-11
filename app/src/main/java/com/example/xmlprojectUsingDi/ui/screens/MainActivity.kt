@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
         with(sharedPref.edit()) {
             putString("AUTH_TOKEN", token)
-            apply()
+            apply()                //used apply() for asynchronous saving to avoid blocking the main thread.
         }
     }
 

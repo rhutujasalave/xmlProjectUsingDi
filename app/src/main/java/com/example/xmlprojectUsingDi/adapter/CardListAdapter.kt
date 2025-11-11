@@ -34,7 +34,7 @@ class CardListAdapter(
 
         when (card.cardBrand.lowercase()) {
             "visa" -> holder.ivCardIcon.setImageResource(R.drawable.ic_eye)
-            "mastercard" -> holder.ivCardIcon.setImageResource(R.drawable.ic_eye)
+            "mastercard" -> holder.ivCardIcon.setImageResource(R.drawable.ic_credit_card)
             else -> holder.ivCardIcon.setImageResource(R.drawable.ic_credit_card)
         }
     }

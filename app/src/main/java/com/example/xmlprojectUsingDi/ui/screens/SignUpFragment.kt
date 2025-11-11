@@ -22,9 +22,7 @@ class SignUpFragment : Fragment() {
 
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
-
     private val countryViewModel: CountryViewModel by viewModels()
-
     private var dialCodeList: List<DialCode> = emptyList()
     private var selectedCountry: DialCode? = null
 

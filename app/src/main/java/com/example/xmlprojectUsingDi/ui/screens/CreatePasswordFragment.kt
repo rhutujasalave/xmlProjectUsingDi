@@ -10,7 +10,9 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.example.xmlprojectUsingDi.R
 import com.example.xmlprojectUsingDi.databinding.FragmentCreatePasswordBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CreatePasswordFragment : Fragment() {
 
     private var _binding: FragmentCreatePasswordBinding? = null

@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.xmlprojectUsingDi.databinding.FragmentChatScreenBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ChatScreenFragment : Fragment() {
 
     private var _binding: FragmentChatScreenBinding? = null
