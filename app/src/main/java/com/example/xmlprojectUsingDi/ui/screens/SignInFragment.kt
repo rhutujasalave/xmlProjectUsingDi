@@ -42,11 +42,9 @@ class SignInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        setupPasswordVisibility()
         setupCountryDropdown()
         setupNavigation()
         observeViewModels()
-//        setupSwipeGesture(view)
 
         countryViewModel.fetchCountryList()
 
@@ -54,40 +52,6 @@ class SignInFragment : Fragment() {
             requireActivity().finish()
         }
     }
-
-
-//    private fun setupSwipeGesture(view: View) {
-//        gestureDetector = GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener() {
-//            private val SWIPE_THRESHOLD = 100
-//            private val SWIPE_VELOCITY_THRESHOLD = 100
-//
-//            override fun onFling(
-//                e1: android.view.MotionEvent?,
-//                e2: android.view.MotionEvent?,
-//                velocityX: Float,
-//                velocityY: Float
-//            ): Boolean {
-//                if (e1 == null || e2 == null) return false
-//                val diffX = e2.x - e1.x
-//                val diffY = e2.y - e1.y
-//
-//                if (kotlin.math.abs(diffX) > kotlin.math.abs(diffY)) {
-//                    if (kotlin.math.abs(diffX) > SWIPE_THRESHOLD && kotlin.math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-//                        if (diffX < 0) {
-//                            navigateToSignUp() // Swipe left → Go to SignUp
-//                        }
-//                        return true
-//                    }
-//                }
-//                return false
-//            }
-//        })
-//
-//        view.setOnTouchListener { _, event ->
-//            gestureDetector.onTouchEvent(event)
-//            true
-//        }
-//    }
 
 
     private fun setupCountryDropdown() {

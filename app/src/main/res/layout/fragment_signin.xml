@@ -97,26 +97,6 @@
             android:orientation="horizontal"
             android:paddingHorizontal="12dp">
 
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:id="@+id/countryDropdownLayout"-->
-<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="Select Country">-->
-
-<!--                <AutoCompleteTextView-->
-<!--                    android:id="@+id/actvCountry"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Select Country"-->
-<!--                    android:inputType="none"-->
-<!--                    android:background="@drawable/edittext_background"-->
-<!--                    android:padding="12dp"-->
-<!--                    android:textColor="@color/dark_gray"-->
-<!--                    android:drawableEnd="@drawable/ic_arrow_drop_down" />-->
-
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
-
             <AutoCompleteTextView
                 android:id="@+id/actvCountry"
                 android:layout_width="wrap_content"
