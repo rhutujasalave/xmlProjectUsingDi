@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xmlprojectUsingDi.R
 import com.example.xmlprojectUsingDi.adapter.TripListAdapter
 import com.example.xmlprojectUsingDi.data.model.response.TripItem
 import com.example.xmlprojectUsingDi.databinding.FragmentUpcomingTripBinding
+import com.example.xmlprojectUsingDi.ui.viewmodel.SharedViewModel
 import com.example.xmlprojectUsingDi.viewmodel.TripListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
@@ -25,10 +27,9 @@ class UpcomingTripFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: TripListViewModel by viewModels()
     private lateinit var adapter: TripListAdapter
-
     private var fullTripList: List<TripItem> = emptyList()
-
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +46,16 @@ class UpcomingTripFragment : Fragment() {
         setupRecyclerViewUpcomingTripDetails()
         setupUI()
 
-        val token = (activity as? MainActivity)?.getAuthToken() ?: ""
-        viewModel.getTripList(token, true)
+//        val token = (activity as? MainActivity)?.getAuthToken() ?: ""
+//        viewModel.getTripList(token, true)
+
+        sharedViewModel.authToken.observe(viewLifecycleOwner) { token ->
+            if (!token.isNullOrEmpty()) {
+                viewModel.getTripList(token, true)
+            } else {
+                Toast.makeText(requireContext(), "Token not found", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         viewModel.upcomingTrips.observe(viewLifecycleOwner) { trips ->
             fullTripList = trips

@@ -18,6 +18,8 @@ import com.example.xmlprojectUsingDi.ui.viewmodel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.GestureDetector
 import android.widget.EditText
+import androidx.fragment.app.activityViewModels
+import com.example.xmlprojectUsingDi.ui.viewmodel.SharedViewModel
 
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
@@ -28,8 +30,7 @@ class SignInFragment : Fragment() {
     private val countryViewModel: CountryViewModel by viewModels()
     private var dialCodeList: List<DialCode> = emptyList()
     private var selectedCountry: DialCode? = null
-    private lateinit var gestureDetector: GestureDetector
-
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -175,7 +176,9 @@ class SignInFragment : Fragment() {
 
                     val token = state.response.data?.accessToken ?: ""
                     if (token.isNotEmpty()) {
-                        (activity as? MainActivity)?.saveAuthToken(token)
+//                        (activity as? MainActivity)?.saveAuthToken(token)
+
+                        sharedViewModel.saveToken(token)
                         Toast.makeText(requireContext(), "Access token saved successfully!", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(requireContext(), "Access token not found in response", Toast.LENGTH_SHORT).show()

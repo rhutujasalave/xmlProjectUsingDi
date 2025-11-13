@@ -45,16 +45,18 @@ class MainActivity : AppCompatActivity() {
             if (show) View.VISIBLE else View.GONE
     }
 
-    fun saveAuthToken(token: String) {
-        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            putString("AUTH_TOKEN", token)
-            apply()                //used apply() for asynchronous saving to avoid blocking the main thread.
-        }
-    }
+    // i switch approch ,to store token i used shredviewmodel
 
-    fun getAuthToken(): String? {
-        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-        return sharedPref.getString("AUTH_TOKEN", null)
-    }
+//    fun saveAuthToken(token: String) {
+//        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+//        with(sharedPref.edit()) {
+//            putString("AUTH_TOKEN", token)
+//            apply()                //used apply() for asynchronous saving to avoid blocking the main thread.
+//        }
+//    }
+//
+//    fun getAuthToken(): String? {
+//        val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+//        return sharedPref.getString("AUTH_TOKEN", null)
+//    }
 }

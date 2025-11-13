@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.xmlprojectUsingDi.R
 import com.example.xmlprojectUsingDi.databinding.FragmentWalletBinding
+import com.example.xmlprojectUsingDi.ui.viewmodel.SharedViewModel
 import com.example.xmlprojectUsingDi.ui.viewmodel.WalletViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +20,7 @@ class WalletFragment : Fragment() {
     private var _binding: FragmentWalletBinding? = null
     private val binding get() = _binding!!
     private val walletViewModel: WalletViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +37,16 @@ class WalletFragment : Fragment() {
         setupListeners()
         observeViewModel()
 
-        val token = (activity as? MainActivity)?.getAuthToken() ?: ""
-        walletViewModel.fetchWalletBalance(token)
+//        val token = (activity as? MainActivity)?.getAuthToken() ?: ""
+//        walletViewModel.fetchWalletBalance(token)
+
+        sharedViewModel.authToken.observe(viewLifecycleOwner) { token ->
+            if (!token.isNullOrEmpty()) {
+                walletViewModel.fetchWalletBalance(token)
+            } else {
+                Toast.makeText(requireContext(), "Token not found", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     }
 

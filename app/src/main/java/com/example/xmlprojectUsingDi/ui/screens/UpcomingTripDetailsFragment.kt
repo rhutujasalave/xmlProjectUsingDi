@@ -11,10 +11,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.xmlprojectUsingDi.R
 import com.example.xmlprojectUsingDi.databinding.ItemDetailPastTripBinding
+import com.example.xmlprojectUsingDi.ui.viewmodel.SharedViewModel
 import com.example.xmlprojectUsingDi.utils.DateUtils.formatDateTime
 import com.example.xmlprojectUsingDi.utils.fixDuplicateUrl
 import com.example.xmlprojectUsingDi.viewmodel.TripDetailsViewModel
@@ -26,15 +28,13 @@ class UpcomingTripDetailsFragment : Fragment() {
     private var _binding: ItemDetailPastTripBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TripDetailsViewModel by viewModels()
-
     private var tripId: Int = 0
     private var isUpcoming: Boolean = false
-    private var lastImageUrl: String? = null
-
     private var receiverPhoneNumber: String? = null
     private var receiverCountryCode: String? = null
     private var customerPhoneNumber: String? = null
     private var customerCountryCode: String? = null
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
     companion object {
@@ -63,15 +63,23 @@ class UpcomingTripDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.showBottomNav(false)
 
         initArguments()
         setupUI()
         setupObservers()
         setupClickListeners()
 
-        (activity as? MainActivity)?.showBottomNav(false)
-        val token = (activity as? MainActivity)?.getAuthToken() ?: ""
-        viewModel.getTripDetails(token, tripId)
+//        val token = (activity as? MainActivity)?.getAuthToken() ?: ""
+//        viewModel.getTripDetails(token, tripId)
+
+        sharedViewModel.authToken.observe(viewLifecycleOwner) { token ->
+            if (!token.isNullOrEmpty()) {
+                viewModel.getTripDetails(token, tripId)
+            } else {
+                Toast.makeText(requireContext(), "Token not found", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun initArguments() {
@@ -103,9 +111,7 @@ class UpcomingTripDetailsFragment : Fragment() {
 
 
             detail.schedule?.toDate?.let { isoDate ->
-
                 val formatted = formatDateTime(isoDate).replace(",", " | ")
-
                 binding.tvdate.text = formatted
                 binding.tvAcceptedDate.text = formatted
             } ?: run {

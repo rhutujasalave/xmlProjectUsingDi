@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.xmlprojectUsingDi.R
 import com.example.xmlprojectUsingDi.databinding.FragmentRechargeWalletBinding
 import com.example.xmlprojectUsingDi.ui.adapter.CardListAdapter
 import com.example.xmlprojectUsingDi.ui.viewmodel.CardListViewModel
+import com.example.xmlprojectUsingDi.ui.viewmodel.SharedViewModel
 import com.example.xmlprojectUsingDi.ui.viewmodel.WalletViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,13 +22,11 @@ class RechargeWalletFragment : Fragment() {
 
     private var _binding: FragmentRechargeWalletBinding? = null
     private val binding get() = _binding!!
-
     private val walletViewModel: WalletViewModel by viewModels()
     private val cardListViewModel: CardListViewModel by viewModels()
-
     private lateinit var cardListAdapter: CardListAdapter
-
     private val dialog = AddCardDialogFragment()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,12 +44,21 @@ class RechargeWalletFragment : Fragment() {
         setupListeners()
         observeViewModels()
 
-        val token = (activity as? MainActivity)?.getAuthToken() ?: ""
-        if (token.isNotEmpty()) {
-            walletViewModel.fetchWalletBalance(token)
-            cardListViewModel.fetchCardList(token)
-        } else {
-            Toast.makeText(requireContext(), "Token not found", Toast.LENGTH_SHORT).show()
+//        val token = (activity as? MainActivity)?.getAuthToken() ?: ""
+//        if (token.isNotEmpty()) {
+//            walletViewModel.fetchWalletBalance(token)
+//            cardListViewModel.fetchCardList(token)
+//        } else {
+//            Toast.makeText(requireContext(), "Token not found", Toast.LENGTH_SHORT).show()
+//        }
+
+        sharedViewModel.authToken.observe(viewLifecycleOwner) { token ->
+            if (!token.isNullOrEmpty()) {
+                walletViewModel.fetchWalletBalance(token)
+                cardListViewModel.fetchCardList(token)
+            } else {
+                Toast.makeText(requireContext(), "Token not found", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
