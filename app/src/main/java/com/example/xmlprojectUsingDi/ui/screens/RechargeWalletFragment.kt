@@ -105,7 +105,6 @@ class RechargeWalletFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        (activity as? MainActivity)?.showBottomNav(true)
     }
 
 }

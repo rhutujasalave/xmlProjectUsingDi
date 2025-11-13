@@ -32,7 +32,7 @@ class WalletFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as? MainActivity)?.showBottomNav(false)
+        (activity as? MainActivity)?.showBottomNav(true)
 
         setupListeners()
         observeViewModel()
@@ -82,7 +82,7 @@ class WalletFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        (activity as? MainActivity)?.showBottomNav(true)
+//        (activity as? MainActivity)?.showBottomNav(true)
     }
 
 }

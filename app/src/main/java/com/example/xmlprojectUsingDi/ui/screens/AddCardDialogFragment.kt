@@ -69,6 +69,6 @@ class AddCardDialogFragment : DialogFragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as? MainActivity)?.showBottomNav(true)
+//        (activity as? MainActivity)?.showBottomNav(true)
     }
 }
